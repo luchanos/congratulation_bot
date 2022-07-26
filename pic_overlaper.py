@@ -26,11 +26,11 @@ VALID_VIGNETTES = get_valid_files(path=PATH_TO_VIGNETTES, formats=["png", ])
 
 def get_elements_for_picture() -> dict:
     """Функция для получения случайных ингредиентов для изготовления поздравительной открытки"""
-    return {"font": f"{PATH_TO_FONTS}/{random.sample(VALID_FONTS, k=1)[0]}",
+    return {"font": f"{PATH_TO_FONTS}/{random.sample(VALID_FONTS, k=1)[0]}",  # выборка 1 элемента
             "corner_pictures": list(map(lambda x: f"{PATH_TO_CORNER_ELEMENTS}/{x}",
-                                        random.sample(VALID_CORNER_PICTURES, k=4))),
+                                        random.sample(VALID_CORNER_PICTURES, k=4))),  # выборка 4х элементов
             "background": f"{PATH_TO_BACKGROUNDS}/{random.sample(VALID_BACKGROUNDS, k=1)[0]}",
-            "vignette": f"{PATH_TO_VIGNETTES}/{random.sample(VALID_VIGNETTES, k=1)[0]}"
+            "vignette": f"{PATH_TO_VIGNETTES}/{random.sample(VALID_VIGNETTES, k=1)[0]}"  # выборка 1 элемента
             }
 
 
@@ -47,6 +47,7 @@ def paste_corner_elements(card_image, corner_elements):
     el_num = 0
     for element in corner_elements:
         element_to_paste = Image.open(element).convert("RGBA")
+        # накладываем элемент
         card_image.paste(element_to_paste, coordinates[el_num], element_to_paste)
         el_num += 1
     return card_image
@@ -58,6 +59,7 @@ def draw_text_on_image(card_image, congratulation_phrase, fontpath, color):
     draw = ImageDraw.Draw(card_image)  # объект для рисования на нашем холсте
     x, y = card_image.size
     w, h = draw.textsize(congratulation_phrase, font=font)
+    # вычисляем центрирование
     draw.text(((x - w) / 2, (y - h) / 2), congratulation_phrase.upper(), font=font, fill=color, align="center")
 
 
