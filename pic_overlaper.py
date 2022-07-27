@@ -30,7 +30,7 @@ def get_elements_for_picture() -> dict:
     corner_pictures = list(map(lambda x: f"{PATH_TO_CORNER_ELEMENTS}/{x}", random.sample(VALID_CORNER_PICTURES, k=4)))
     background = f"{PATH_TO_BACKGROUNDS}/{random.sample(VALID_BACKGROUNDS, k=1)[0]}"
     vignette = f"{PATH_TO_VIGNETTES}/{random.sample(VALID_VIGNETTES, k=1)[0]}"
-    return {"font": font,  # выборка 1 элемента
+    return {"font": font,
             "corner_pictures": corner_pictures,
             "background": background,
             "vignette": vignette
@@ -74,7 +74,7 @@ def draw_vignette(card_image, vignette_path):
 
 
 def congratulation_func(congratulation_phrase: str):
-    picture_ingredients = get_elements_for_picture()
+    picture_ingredients: dict = get_elements_for_picture()
     bg = Image.open(picture_ingredients["background"]).convert("RGBA")  # конверт в red, green, blue, alpha каналы
     corner_elements = picture_ingredients["corner_pictures"]
     vignette = picture_ingredients["vignette"]
