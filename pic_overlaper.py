@@ -6,7 +6,7 @@ from io import BytesIO
 
 
 def get_valid_files(path: str, formats: list) -> list:
-    """Функция для получения случайной группы файлов из директории нужных форматов"""
+    """Функция для получения валидной группы файлов из директории нужных форматов"""
     all_files = os.listdir(path)
     valid_files = [file for file in all_files if file.split(".")[1] in formats]
     return valid_files
@@ -26,11 +26,14 @@ VALID_VIGNETTES = get_valid_files(path=PATH_TO_VIGNETTES, formats=["png", ])
 
 def get_elements_for_picture() -> dict:
     """Функция для получения случайных ингредиентов для изготовления поздравительной открытки"""
-    return {"font": f"{PATH_TO_FONTS}/{random.sample(VALID_FONTS, k=1)[0]}",  # выборка 1 элемента
-            "corner_pictures": list(map(lambda x: f"{PATH_TO_CORNER_ELEMENTS}/{x}",
-                                        random.sample(VALID_CORNER_PICTURES, k=4))),  # выборка 4х элементов
-            "background": f"{PATH_TO_BACKGROUNDS}/{random.sample(VALID_BACKGROUNDS, k=1)[0]}",
-            "vignette": f"{PATH_TO_VIGNETTES}/{random.sample(VALID_VIGNETTES, k=1)[0]}"  # выборка 1 элемента
+    font = f"{PATH_TO_FONTS}/{random.sample(VALID_FONTS, k=1)[0]}"
+    corner_pictures = list(map(lambda x: f"{PATH_TO_CORNER_ELEMENTS}/{x}", random.sample(VALID_CORNER_PICTURES, k=4)))
+    background = f"{PATH_TO_BACKGROUNDS}/{random.sample(VALID_BACKGROUNDS, k=1)[0]}"
+    vignette = f"{PATH_TO_VIGNETTES}/{random.sample(VALID_VIGNETTES, k=1)[0]}"
+    return {"font": font,  # выборка 1 элемента
+            "corner_pictures": corner_pictures,
+            "background": background,
+            "vignette": vignette
             }
 
 
